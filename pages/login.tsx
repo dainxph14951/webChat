@@ -1,9 +1,10 @@
-
 import Button  from "@mui/material/Button"
 import Head from "next/head"
 import styled from "styled-components"
 import Image from 'next/image'
 import WhatsAppLogo from '../assets/WhatsAppLogo.png'
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth'
+import { auth } from "../congig/firebase"
 
 const StyledContainer = styled.div`
     height: 100vh;
@@ -25,20 +26,24 @@ const StyledImageWrapper = styled.div`
     margin-bottom: 50px;
 `
 const login = () => {
+    
+    const [signInWithGoogle, _user, _loading, _error] = useSignInWithGoogle(auth)
+
+	const signIn = () => {
+		signInWithGoogle()
+	}
   return (
     <StyledContainer>
         <Head>
             <title>Login</title>
         </Head>
-
+ 
         <StyledLoginContainrt>
             <StyledImageWrapper>
-                <Image  src={WhatsAppLogo} alt='Whatsapp Logo' height='200px' width='300px'/>
+                <Image  src={WhatsAppLogo} alt='Whatsapp Logo' height='150px' width='250px'/>
             </StyledImageWrapper>
 
-            <Button variant='outlined' onClick={() => {
-                console.log('Sign In')
-            }} > Sign In  </Button>
+            <Button variant='outlined' onClick={signIn} > Sign In  </Button>
         </StyledLoginContainrt>
     </StyledContainer>
   )
