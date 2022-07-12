@@ -4,9 +4,11 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip  from "@mui/material/Tooltip"
 import ChatIcon from "@mui/icons-material/Chat"
 import MoreVerticalIcon  from "@mui/icons-material/MoreVert"
-import Logouticon from "@mui/icons-material/Logout"
+import LogoutIcon from "@mui/icons-material/Logout"
 import SearchIcon from "@mui/icons-material/Search"
 import Button from "@mui/material/Button"
+import { signOut } from "firebase/auth"
+import { auth } from "../congig/firebase"
 
 const StyledContainer = styled.div `
     height: 100vd;
@@ -59,6 +61,13 @@ const StyledSearchInput = styled.input`
 `
 
 const Sidebar = () => {
+    const logout= async () => {
+        try {
+            await signOut(auth)
+        } catch (error) {
+            console.log('ERROR LOGIN OUT', error)
+        }
+    }
   return (
     <StyledContainer >
         <StyledHeader>
@@ -74,8 +83,8 @@ const Sidebar = () => {
                     <MoreVerticalIcon />
                 </IconButton>
                 
-                <IconButton>
-                    <Logouticon />
+                <IconButton onClick={logout}>
+                    <LogoutIcon />
                 </IconButton>
             </div>
         </StyledHeader>
